@@ -3,18 +3,24 @@
 ## 1. Introduction
 
 ### Project Topic/Title
-Spectral Dynamics of Cognitive Workload:EEG During Mental Arithmetic Tasks
+Spectral Dynamics of Cognitive Workload: EEG During Mental Arithmetic Tasks
 
 ### Introduction & Cognitive Mechanism
-This project aims to explore Working Memory and Sustained Attention within human information processing mechanisms. Serial subtraction is a typical high-cognitive-load task that requires the brain to temporarily store, retrieve, and repeatedly manipulate numerical information within working memory in a very short period of time, while simultaneously filtering out external interference. The core hypothesis of this project is: when subjects transition from a relaxed resting-state to a high-intensity mental arithmetic task, the synchronous firing patterns of their cortical neurons will change, subsequently leading to a significant spatial distribution shift in the power spectral density (PSD) of specific EEG frequency bands.
+This project aims to explore **working memory** and **sustained attention** within human information processing. Serial subtraction is a typical high-cognitive-load task that requires the brain to temporarily store, retrieve, and repeatedly manipulate numerical information within working memory in a very short period of time while simultaneously filtering out external interference.
 
-To verify this neurophysiological phenomenon, we will primarily extract and quantify two specific EEG indicators: the **frontal Theta band (4–8 Hz)** and the **parieto-occipital Alpha band (8–13 Hz)**.
+The central hypothesis of this project is that transitions from a relaxed resting state to a demanding mental arithmetic task lead to alterations in the power spectral density (PSD) of specific EEG frequency bands.
 
-In cognitive neuroscience, these two spectral indicators have a highly clear association with the brain's information processing:
-* The power enhancement of **Frontal Midline Theta** is a reliable biomarker for increased "cognitive resource allocation" and "working memory load," reflecting the high activation of the prefrontal cortex during executive functions.
-* **Parieto-Occipital Alpha** waves typically represent the brain in a relaxed or inhibited state. When the brain enters a state of active information processing and focus, the Alpha wave power in this region significantly decreases, a phenomenon known as "Event-Related Desynchronization (ERD)."
+To investigate these neurophysiological changes, we primarily focus on two EEG indicators: **Frontal Midline Theta (4–8 Hz)** and **Parietal Alpha (8–12 Hz)**.
 
-By jointly observing the "enhancement of Theta waves" and the "desynchronization of Alpha waves," we can accurately quantify the brain's resource allocation and cognitive workload state. Furthermore, we adopted the **Workload Index (Fz theta / Pz alpha)** as our core metric. By quantifying the ratio of these two spectral indicators, we can accurately observe the dynamic fluctuations of the subjects' cognitive workload during the execution of mental arithmetic tasks.
+In cognitive neuroscience, these two spectral indicators have well-established relationships with cognitive processing:
+
+- The enhancement of **Frontal Midline Theta** is considered a reliable biomarker of increased **working memory load**, **executive control**, and **cognitive resource allocation**, reflecting the engagement of frontal brain regions during demanding cognitive tasks.
+
+- **Parietal Alpha** activity is often associated with cortical idling and inhibitory processes. During active information processing and focused attention, Alpha power tends to decrease, a phenomenon commonly referred to as **Event-Related Desynchronization (ERD)**.
+
+Therefore, this project adopts the **Workload Index (Fz Theta / Pz Alpha)** as the primary workload metric to quantify changes in cognitive workload during mental arithmetic tasks.
+
+For demonstration purposes, the present analysis focuses on **Subject 03**, a participant belonging to the **Good-performance group (Group G)** identified in the original dataset. The study compares EEG activity between resting-state and mental arithmetic conditions within this individual to illustrate the implementation and interpretation of EEG-based workload assessment.
 
 ---
 
@@ -149,3 +155,153 @@ Moving Window (3 s)
 Power Spectrum (Multitaper, TBWP = 2.5)
 ↓
 Frequency Band Averaging
+```
+
+Subject03_rest
+<img width="1440" height="802" alt="截圖 2026-06-12 晚上9 31 40" src="https://github.com/user-attachments/assets/e2adeb5f-e8c4-4b83-add6-a1048309208f" />
+Subject03_work
+<img width="1440" height="798" alt="截圖 2026-06-12 晚上9 33 29" src="https://github.com/user-attachments/assets/6e6e6c94-9831-4835-bff4-b0a27dccfb47" />
+
+---
+
+## 4. Neurophysiological Feature Extraction
+
+Following preprocessing, EEG spectral features were extracted to quantify neurophysiological changes associated with mental arithmetic. The same analysis procedures were independently applied to both the **resting-state** and **mental arithmetic** recordings.
+
+### Mental Workload
+
+Mental workload was estimated using the ratio proposed by Holm et al. (2009):
+
+**Mental Workload = Theta(Fz) / Alpha(Pz)**
+where:
+
+- **Theta(Fz)** represents Theta-band power recorded at the frontal midline electrode **Fz**;
+- **Alpha(Pz)** represents Alpha-band power recorded at the parietal electrode **Pz**.
+
+Higher values of this ratio are generally interpreted as reflecting greater cognitive workload.
+
+Feature extraction was implemented using the following NeuroPype operations:
+
+#### Theta (Fz)
+
+```
+Select Range
+[16 along space (indices)]
+
+Select Range
+[1 along frequency (indices)]
+```
+
+#### Alpha (Pz)
+
+```
+Select Range
+[18 along space (indices)]
+
+Select Range
+[2 along frequency (indices)]
+```
+
+#### Workload Computation
+
+```
+Divide
+[Theta(Fz) / Alpha(Pz)]
+```
+
+Higher values indicate increased cognitive workload.
+
+---
+
+### Frontal Theta Analysis
+
+Frontal Theta activity was extracted to investigate task-related changes in executive processing and mental effort.
+
+The frontal electrode cluster consisted of:
+
+- Fp1 (index 0)
+- Fp2 (index 1)
+- F3 (index 2)
+- F4 (index 3)
+- F7 (index 4)
+- F8 (index 5)
+- Fz (index 16)
+
+The following operations were performed:
+
+```
+Select Range
+[[0, 1, 2, 3, 4, 5, 16] along space (indices)]
+
+Select Range
+[1 along frequency (indices)]
+
+Sum
+[over space, emitted as feature axis]
+```
+
+The resulting values were visualized using:
+
+```
+Bar Plot
+['Frontal_theta']
+```
+
+Higher frontal Theta power is generally associated with increased cognitive control and mental workload.
+
+### Frontal Alpha Analysis
+
+Frontal Alpha activity was extracted using the same frontal electrode cluster:
+
+- Fp1 (index 0)
+- Fp2 (index 1)
+- F3 (index 2)
+- F4 (index 3)
+- F7 (index 4)
+- F8 (index 5)
+- Fz (index 16)
+
+The following operations were performed:
+
+```
+Select Range
+[[0, 1, 2, 3, 4, 5, 16] along space (indices)]
+
+Select Range
+[2 along frequency (indices)]
+
+Sum
+[over space, emitted as feature axis]
+```
+
+The resulting values were visualized using:
+
+```
+Bar Plot
+['Frontal_alpha']
+```
+
+Task-related decreases in Alpha power may reflect enhanced attentional allocation and cortical activation.
+
+###  Feature Extraction Workflow
+
+```text
+Frequency Band Averaging
+↓
+├─ Mental Workload Branch
+│    ├─ Fz (Index 16) → Theta
+│    ├─ Pz (Index 18) → Alpha
+│    └─ Divide (Theta / Alpha)
+│
+├─ Frontal Theta Branch
+│    ├─ Frontal Cluster
+│    ├─ Theta Selection
+│    └─ Sum Across Channels
+│
+└─ Frontal Alpha Branch
+     ├─ Frontal Cluster
+     ├─ Alpha Selection
+     └─ Sum Across Channels
+```
+
+The extracted features were subsequently used to compare resting-state and arithmetic-task conditions.
