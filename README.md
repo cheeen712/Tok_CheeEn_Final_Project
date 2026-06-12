@@ -211,77 +211,32 @@ Divide
 
 Higher values indicate increased cognitive workload.
 
----
 
 ### Frontal Theta Analysis
+Frontal Theta was extracted to quantify executive processing and mental effort.
 
-Frontal Theta activity was extracted to investigate task-related changes in executive processing and mental effort.
+**Frontal Cluster (Indices)** : Fp1(0), Fp2(1), F3(2), F4(3), F7(4), F8(5), Fz(16).
 
-The frontal electrode cluster consisted of:
+**Operations**:
+Select Range [[0, 1, 2, 3, 4, 5, 16] space]
+Select Range [1 frequency]
+Sum [over space]
 
-- Fp1 (index 0)
-- Fp2 (index 1)
-- F3 (index 2)
-- F4 (index 3)
-- F7 (index 4)
-- F8 (index 5)
-- Fz (index 16)
+**Visualization**: Bar Plot ['Frontal_theta']
 
-The following operations were performed:
-
-```
-Select Range
-[[0, 1, 2, 3, 4, 5, 16] along space (indices)]
-
-Select Range
-[1 along frequency (indices)]
-
-Sum
-[over space, emitted as feature axis]
-```
-
-The resulting values were visualized using:
-
-```
-Bar Plot
-['Frontal_theta']
-```
-
-Higher frontal Theta power is generally associated with increased cognitive control and mental workload.
+**Significance**: Higher power reflects increased cognitive control and workload
 
 ### Frontal Alpha Analysis
+Frontal Alpha was extracted using the same cluster to monitor attentional allocation
 
-Frontal Alpha activity was extracted using the same frontal electrode cluster:
+**Operations**:
+Select Range [[0, 1, 2, 3, 4, 5, 16] space]
+Select Range [2 frequency]
+Sum [over space]
 
-- Fp1 (index 0)
-- Fp2 (index 1)
-- F3 (index 2)
-- F4 (index 3)
-- F7 (index 4)
-- F8 (index 5)
-- Fz (index 16)
+**Visualization**: Bar Plot ['Frontal_alpha']
 
-The following operations were performed:
-
-```
-Select Range
-[[0, 1, 2, 3, 4, 5, 16] along space (indices)]
-
-Select Range
-[2 along frequency (indices)]
-
-Sum
-[over space, emitted as feature axis]
-```
-
-The resulting values were visualized using:
-
-```
-Bar Plot
-['Frontal_alpha']
-```
-
-Task-related decreases in Alpha power may reflect enhanced attentional allocation and cortical activation.
+**Significance**: Alpha decreases reflect enhanced attention and cortical activation
 
 ###  Feature Extraction Workflow
 
@@ -305,3 +260,15 @@ Frequency Band Averaging
 ```
 
 The extracted features were subsequently used to compare resting-state and arithmetic-task conditions.
+
+### Pipeline Overview
+
+The NeuroPype architecture consists of two parallel processing pipelines designed to compare neural activity between resting-state and mental arithmetic conditions.
+
+- **Upper Pipeline (Resting-State Pipeline):** This branch imports and processes the participant's baseline EEG recordings, corresponding to EDF files with the suffix **`_1`**. The extracted features represent the participant's neurophysiological state during a relaxed, non-task condition and serve as the reference for subsequent comparisons.
+
+- **Lower Pipeline (Workload Pipeline):** This branch processes EEG recordings acquired during the **mental arithmetic task**, corresponding to EDF files with the suffix **`_2`**. The extracted features capture changes in neural oscillatory activity associated with increased cognitive demand and workload.
+
+Together, these two pipelines enable a within-subject comparison of spectral dynamics between resting-state and task-related conditions.
+
+<img width="1123" height="560" alt="截圖 2026-06-12 晚上10 13 15" src="https://github.com/user-attachments/assets/2d558492-2c40-40e0-8d26-32826f0ae331" />
