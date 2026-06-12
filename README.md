@@ -275,6 +275,12 @@ Together, these two pipelines enable a within-subject comparison of spectral dyn
 
 ---
 
+## 5. End-to-End Analysis Pipeline Demo Video
+
+https://drive.google.com/file/d/1MNdKJGNuSYBVPx7ifvwjwy3XubbWTYXP/view?usp=sharing
+
+---
+
 ## 6. Analytical Results & Interpretation
 
 This section presents the analytical outcomes of the NeuroPype pipeline and provides a neurophysiological interpretation of the observed EEG patterns. The analysis focuses on comparing resting-state and mental arithmetic conditions using spectral EEG features associated with cognitive workload.
