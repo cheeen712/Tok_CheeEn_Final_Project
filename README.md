@@ -272,3 +272,88 @@ The NeuroPype architecture consists of two parallel processing pipelines designe
 Together, these two pipelines enable a within-subject comparison of spectral dynamics between resting-state and task-related conditions.
 
 <img width="1123" height="560" alt="截圖 2026-06-12 晚上10 13 15" src="https://github.com/user-attachments/assets/2d558492-2c40-40e0-8d26-32826f0ae331" />
+
+---
+
+## 6. Analytical Results & Interpretation
+
+This section presents the analytical outcomes of the NeuroPype pipeline and provides a neurophysiological interpretation of the observed EEG patterns. The analysis focuses on comparing resting-state and mental arithmetic conditions using spectral EEG features associated with cognitive workload.
+
+### Results Presentation
+
+EEG features were extracted from Subject 03 (Good-performance group, Group G) from the PhysioNet Mental Arithmetic Dataset. The analysis focused on frontal theta activity, frontal alpha activity, and a workload index derived from spectral power ratios.
+
+### Frontal Theta Activity
+
+Frontal theta activity was evaluated using electrodes Fp1, Fp2, F3, F4, F7, F8, and Fz.
+
+**Figure 1: Frontal Theta Comparison (Rest vs Task)**
+
+<img width="803" height="381" alt="截圖 2026-06-12 晚上10 50 28" src="https://github.com/user-attachments/assets/7d1687cb-9c4b-4acb-ad75-945232fa5520" />
+
+The theta-band activity showed observable differences between resting-state and mental arithmetic conditions. As this analysis is based on a single participant, the observed pattern should be interpreted as an exploratory finding rather than a definitive conclusion.
+
+
+### Frontal Alpha Activity
+
+Frontal alpha activity was extracted from the same frontal electrode cluster.
+
+**Figure 2: Frontal Alpha Comparison (Rest vs Task)**
+
+<img width="800" height="380" alt="截圖 2026-06-12 晚上10 50 34" src="https://github.com/user-attachments/assets/9ffa6427-ae0b-4d41-aacf-a77d2b33f536" />
+
+Alpha activity was noticeably reduced during the mental arithmetic task compared with the resting condition. This pattern suggests increased cognitive engagement and attentional processing during task performance.
+
+### Mental Workload Index
+
+The workload index was computed as a ratio-based EEG feature to estimate cognitive demand during task performance. Detailed workload measurements are provided in the accompanying CSV file for further inspection and quantitative analysis. The workload index serves as a complementary measure to the theta and alpha band analyses and may help characterize task-related neural activity.
+
+### Neurophysiological Interpretation
+
+### Alpha Band Suppression
+
+A reduction in alpha activity during mental arithmetic is consistent with **Event-Related Desynchronization (ERD)**, a phenomenon commonly associated with active cognitive processing.
+[final_02_workload.csv](https://github.com/user-attachments/files/28884728/final_02_workload.csv)
+This may reflect:
+
+* Increased attentional demand
+* Reduced cortical idling
+* Enhanced information processing
+
+These findings suggest that the participant allocated additional cognitive resources while performing the arithmetic task.
+
+### Theta Band Activity
+
+Frontal theta activity is often associated with working memory and executive control processes.
+
+In this analysis, theta activity did not show a clear task-related increase. Possible explanations include:
+
+* Spatial averaging across frontal electrodes
+* Individual differences in cognitive strategy
+* Variability in neural efficiency
+
+Therefore, theta activity should be interpreted cautiously and together with other EEG measures.
+
+### Workload Index Interpretation
+
+The workload ratio combines information from multiple frequency bands and provides a broader indicator of cognitive demand.
+
+The results suggest that workload estimation benefits from considering relative spectral changes across frequency bands rather than relying on a single EEG feature.
+
+### Methodological Insight
+
+This study demonstrates that EEG-based workload estimation can be influenced by several factors:
+
+* Electrode selection
+* Spatial averaging effects
+* Individual cognitive variability
+* Feature definition and extraction methods
+
+Since this analysis was conducted on a single participant, the findings should be considered exploratory and cannot be generalized without additional statistical validation.
+
+Future work could include:
+
+* Analysis of all participants in the dataset
+* Statistical comparison between Group G and Group B
+* Application of inferential tests (e.g., t-test or ANOVA)
+* Evaluation of workload metrics across subjects
